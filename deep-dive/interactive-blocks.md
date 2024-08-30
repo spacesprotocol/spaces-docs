@@ -15,7 +15,7 @@ For example, to encode the following space script:
 OP_OPEN
 ```
 
-It would look like this\\
+It would look like this
 
 <figure><picture><source srcset="../.gitbook/assets/space-script-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/space-script-light.png" alt=""></picture><figcaption><p><code>@bitcoin OP_OPEN</code></p></figcaption></figure>
 
