@@ -1,0 +1,6 @@
+# Covenants
+
+While Bitcoin itself doesn't have native [covenant](https://bitcoinops.org/en/topics/covenants/) capabilities, protocol-specific spending conditions can be implemented for space outputs. If these conditions are not met, the space is revoked, effectively enforcing how space outputs can be spent.
+
+<table><thead><tr><th width="150">Covenant</th><th>Properties</th><th>Covenant Definition</th></tr></thead><tbody><tr><td>bid</td><td>claim_height: Block height at which the auction winner may safely claim the space. If null, it means space is in pre-auctions</td><td>Spends of this output must be bid spends creating other bid outputs unless the `claim_height` is reached in which case it acts as a transfer covenant for the winner.</td></tr><tr><td>transfer</td><td>expire_height</td><td>Spends of this output must create a corresponding output at N+1. Once the `expire_height` is reached, this essentially becomes anyone can spend in the sense that the space can be -reopened for auction.</td></tr><tr><td>reserved</td><td></td><td>If a space uses one of the reserved op codes, it will be reserved until a future upgrade enables that op code. This is to enable future extensibility.</td></tr></tbody></table>
+

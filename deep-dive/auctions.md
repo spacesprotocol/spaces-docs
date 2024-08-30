@@ -1,0 +1,5 @@
+# Auctions
+
+The auction mechanism involves selecting some UTXO to represent the Space, which is "passed" around between bidders until the auction concludes. Bidders leave a partially signed Bitcoin transaction (PSBT) stating, "If I'm outbid, the next person may spend my space output, on the condition they return my bid to me". Bid amounts are sent to an OP\_RETURN address, which also carries the Bid PSBT in a compressed format.
+
+As the auction progresses, each new bidder consumes the previous space output and creates a new one. This process continues until the final space output is created by the winner. The burning of funds happens incrementally. For example, if Alice places an initial bid burning 1000 sats, and Bob wants to bid 1500 sats, Bob would refund Alice's 1000 sats and burn an additional 500 sats. Since all bids are attempting to spend the same UTXO, the Bitcoin blockchain will still guarantee that only one of the bids manages to burn their coins during simultaneous bidding. For this reason, it's important to burn a small amount in the initial bid because the auction isn't established yet.
