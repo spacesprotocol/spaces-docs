@@ -36,9 +36,9 @@ If you need further help, check the main [guide](https://github.com/bitcoin/bitc
 {% endtab %}
 
 {% tab title="Linux" %}
-### Ubuntu/debian
+#### Ubuntu/debian
 
-Install dependencies&#x20;
+Install dependencies
 
 ```sh
 sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils python3 libevent-dev libboost-dev  libsqlite3-dev
@@ -100,4 +100,4 @@ bitcoind -testnet4 -datadir=$HOME/bitcoin-testnet4
 spaced --chain testnet4 --bitcoin-rpc-user testnet4 --bitcoin-rpc-password testnet4
 ```
 
-Hooray installation is done! 🎉&#x20;
+Hooray installation is done! 🎉
