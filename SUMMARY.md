@@ -6,7 +6,7 @@
 
 * [Installation](getting-started/installation.md)
 * [Quickstart](getting-started/quickstart.md)
-* [Understanding Auctions](getting-started/publish-your-docs.md)
+* [Understanding Auctions](getting-started/understanding-auctions.md)
 * [Subspaces](getting-started/subspaces.md)
 * [Resolver](getting-started/resolver.md)
 * [Explorer](https://explorer.spacesprotocol.org)

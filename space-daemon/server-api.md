@@ -13,8 +13,6 @@ The daemon implements [JSON RPC](https://www.jsonrpc.org/specification), so you 
 }
 ```
 
-
-
 ## Get Server Info
 
 <mark style="color:green;">`getserverinfo`</mark> retrieve the current state of the spaces daemon
@@ -30,8 +28,6 @@ The daemon implements [JSON RPC](https://www.jsonrpc.org/specification), so you 
   "height": 41730
 }
 ```
-
-
 
 ## Get Space
 
@@ -96,8 +92,6 @@ The daemon implements [JSON RPC](https://www.jsonrpc.org/specification), so you 
 {% endtab %}
 {% endtabs %}
 
-
-
 ## Get Space Owner
 
 <mark style="color:green;">`getspaceowner`</mark> retrieves the outpoint of a space:
@@ -115,15 +109,13 @@ Responds with an outpoint with `txid:vout` format.
 b2819258b2416314a36e8f66840ebb5682e2600a07c28a04b4e27fe0b51b46fc:1
 ```
 
-
-
 ## Get Spaceout
 
 <mark style="color:green;">`getspaceout`</mark> retrieves a _spaceout_ which are any UTXOs tracked by the spaces protocol not necessarily ones with a space.
 
 **Params**
 
-<table><thead><tr><th width="137">Name</th><th width="87">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>outpoint</code></td><td>string</td><td><p>An Outpoint which is a specific output within a transaction using <code>txid:vout</code> format e.g. </p><pre class="language-json"><code class="lang-json">b2819258b2416314a36e8f66840ebb5682e2600a07c28a04b4e27fe0b51b46fc:1
+<table><thead><tr><th width="137">Name</th><th width="87">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>outpoint</code></td><td>string</td><td><p>An Outpoint which is a specific output within a transaction using <code>txid:vout</code> format e.g.</p><pre class="language-json"><code class="lang-json">b2819258b2416314a36e8f66840ebb5682e2600a07c28a04b4e27fe0b51b46fc:1
 </code></pre></td></tr></tbody></table>
 
 **Example Response**
@@ -153,11 +145,9 @@ b2819258b2416314a36e8f66840ebb5682e2600a07c28a04b4e27fe0b51b46fc:1
 {% endtab %}
 {% endtabs %}
 
-
-
 ## Estimate bid
 
-<mark style="color:green;">`estimatebid`</mark> estimates the required bid to make it into the [auctions phase](../getting-started/publish-your-docs.md#auctions) within the target block: &#x20;
+<mark style="color:green;">`estimatebid`</mark> estimates the required bid to make it into the [auctions phase](../getting-started/understanding-auctions.md#auctions) within the target block:
 
 **Params**
 
@@ -172,11 +162,9 @@ Responds with an amount in Satoshis
 2000
 ```
 
-
-
 ## Get Rollout
 
-<mark style="color:green;">`getrollout`</mark> get spaces rolling out into auctions for the given interval (in 144 block increments): &#x20;
+<mark style="color:green;">`getrollout`</mark> get spaces rolling out into auctions for the given interval (in 144 block increments):
 
 **Params**
 
@@ -202,8 +190,6 @@ An array of spaces expected to be in auctions within the given `target`
  }
 ]
 ```
-
-
 
 ## Get Block Data
 
