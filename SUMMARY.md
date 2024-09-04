@@ -14,11 +14,11 @@
 ## Deep dive
 
 * [Auctions](deep-dive/auctions.md)
-* [Bid PSBT](deep-dive/markdown.md)
-* [Making Bids](deep-dive/images-and-media.md)
+* [Bid PSBT](deep-dive/bid-psbt.md)
+* [Making Bids](deep-dive/making-bids.md)
 * [Registering a Space](deep-dive/registering-a-space.md)
 * [Moving Spaces](deep-dive/moving-spaces.md)
-* [Space Scripts](deep-dive/interactive-blocks.md)
+* [Space Scripts](deep-dive/space-scripts.md)
 * [Covenants](deep-dive/covenants.md)
 * [Tracking UTXOs](deep-dive/tracking-utxos.md)
 * [Paper](https://spacesprotocol.org/paper)

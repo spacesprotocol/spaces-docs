@@ -10,8 +10,7 @@ Once a space enters the claim period, the current space output holder i.e the wi
 
 Since bidding is still possible in the claim period, the protocol determines if a spend of a space output is a bid spend if the following conditions are met:
 
-* The transaction version, lock time, input sequence for the space output spend, ... etc match the [Bid PSBT](markdown.md) format.
+* The transaction version, lock time, input sequence for the space output spend, ... etc match the [Bid PSBT](bid-psbt.md) format.
 * It's a P2TR key spend with a signature matching exactly the one carried out in the PSBT.
 
 In all other cases it will be interpreted as a claim.
-
