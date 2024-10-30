@@ -5,58 +5,7 @@ description: You can try the Bitcoin Spaces protocol on testnet4 🎉
 # Installation
 
 ### Install Bitcoin Core
-
-{% hint style="info" %}
-Bitcoin Core version 28+ is required for testnet4 and it's not yet released at the time of this writing. Check the [website](https://bitcoin.org/en/bitcoin-core/) to see if it's released otherwise follow instructions below to compile from source.
-{% endhint %}
-
-The following instructions is for compiling Bitcoin core from source to access `testnet4`
-
-{% tabs %}
-{% tab title="MacOS" %}
-Setup environment xcode & brew
-
-```sh
-xcode-select --install
-
-brew install automake libtool boost pkg-config libevent llvm
-```
-
-Compile Bitcoin core
-
-```sh
-git clone https://github.com/bitcoin/bitcoin.git && cd bitcoin
-./autogen.sh
-CC=$(brew --prefix llvm)/bin/clang CXX=$(brew --prefix llvm)/bin/clang++ ./configure --with-gui=no
-make
-make install # optional
-```
-
-If you need further help, check the main [guide](https://github.com/bitcoin/bitcoin/blob/master/doc/build-osx.md)
-{% endtab %}
-
-{% tab title="Linux" %}
-#### Ubuntu/debian
-
-Install dependencies
-
-```sh
-sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils python3 libevent-dev libboost-dev  libsqlite3-dev
-```
-
-Compile
-
-```sh
-git clone https://github.com/bitcoin/bitcoin.git && cd bitcoin
-./autogen.sh
-./configure
-make # use "-j N" for N parallel jobs
-make install # optional
-```
-
-If you need further help or use a different distro, check the main [guide](https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md)
-{% endtab %}
-{% endtabs %}
+Bitcoin Core of version 28+ is required. It can be installed from the official [download page](https://bitcoincore.org/en/download/).
 
 ### Install Spaces Daemon
 

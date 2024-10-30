@@ -19,7 +19,23 @@ The daemon implements [JSON RPC](https://www.jsonrpc.org/specification), so you 
 
 **Params** None
 
-**Response**
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 getserverinfo
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"getserverinfo","params":[],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
 
 ```json
 "chain": "testnet4",
@@ -36,6 +52,22 @@ The daemon implements [JSON RPC](https://www.jsonrpc.org/specification), so you 
 **Params**
 
 <table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>space</code></td><td>string</td><td>Canonical space name e.g. @bitcoin</td></tr></tbody></table>
+
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 getspace @bitcoin
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"getspace","params":["@bitcoin"],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
 
 **Example Response**
 
@@ -102,7 +134,23 @@ The daemon implements [JSON RPC](https://www.jsonrpc.org/specification), so you 
 | ------- | ------ | ---------------------------------- |
 | `space` | string | Canonical space name e.g. @bitcoin |
 
-**Example Response**\
+{% tabs %}
+{% tab title="CLI" %}
+```
+only available via JSON-RPC
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"getspaceowner","params":["@bitcoin"],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
 Responds with an outpoint with `txid:vout` format.
 
 ```json
@@ -118,13 +166,30 @@ b2819258b2416314a36e8f66840ebb5682e2600a07c28a04b4e27fe0b51b46fc:1
 <table><thead><tr><th width="137">Name</th><th width="87">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>outpoint</code></td><td>string</td><td><p>An Outpoint which is a specific output within a transaction using <code>txid:vout</code> format e.g.</p><pre class="language-json"><code class="lang-json">b2819258b2416314a36e8f66840ebb5682e2600a07c28a04b4e27fe0b51b46fc:1
 </code></pre></td></tr></tbody></table>
 
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 getspaceout "b2819258b2416314a36e8f66840ebb5682e2600a07c28a04b4e27fe0b51b46fc:1"
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"getspaceout","params":["b2819258b2416314a36e8f66840ebb5682e2600a07c28a04b4e27fe0b51b46fc:1"],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
 **Example Response**
 
 {% tabs %}
 {% tab title="Space UTXO" %}
-<pre class="language-json"><code class="lang-json"><strong>{ 
-</strong><strong>  "value": 662,
-</strong>  "script_pubkey": "5120882cd5b0ef333be2efd7efd9bea0953f894677f1d5a638c8a3d13734e99d22e6",
+```json
+{ 
+  "value": 662,
+  "script_pubkey": "5120882cd5b0ef333be2efd7efd9bea0953f894677f1d5a638c8a3d13734e99d22e6",
   "name": "@bitcoin",
   "covenant": {
      "type": "transfer",
@@ -132,7 +197,7 @@ b2819258b2416314a36e8f66840ebb5682e2600a07c28a04b4e27fe0b51b46fc:1
      "data": null
   }
 }
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="Other UTXOs" %}
@@ -155,7 +220,23 @@ b2819258b2416314a36e8f66840ebb5682e2600a07c28a04b4e27fe0b51b46fc:1
 | -------- | ------ | ------------------------ |
 | `target` | number | The target rollout block |
 
-**Example Response**\
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 estimatebid 14400
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"estimatebid","params":[144],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
 Responds with an amount in Satoshis
 
 ```json
@@ -170,25 +251,35 @@ Responds with an amount in Satoshis
 
 <table><thead><tr><th width="208">Name</th><th width="172">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>target</code></td><td>number</td><td>The target interval e.g. specify 0 for the coming rollout, 1 for the day after and so on.</td></tr></tbody></table>
 
-**Example Response**\
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 getrollout 0
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"getrollout","params":[0],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
 An array of spaces expected to be in auctions within the given `target`
 
 ```json
 [
-  {
-    "outpoint": "1ea73982abb36cf2c62deced717fbe944c3af89abe768aa454642879b29e5adc:1",
-    "value": 662,
-    "script_pubkey": "51202a7267b047254ad41e87458b902c286434e3764ffd2f2fdb46a9c8fafa6135e3",
-    "name": "@btc",
-    "covenant": {
-    "type": "bid",
-    "burn_increment": 1000,
-    "signature": "........",
-    "total_burned": 1000,
-    "claim_height": null
-   }
- }
-]
+  [
+    "@bitcoin",
+    1000
+  ],
+  [
+    "@mytestspace",
+    1000
+  ],
 ```
 
 ## Get Block Data
@@ -200,6 +291,22 @@ An array of spaces expected to be in auctions within the given `target`
 | Name         | Type   | Description                  |
 | ------------ | ------ | ---------------------------- |
 | `block_hash` | string | The block hash as hex string |
+
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 getblockdata 0000000012982b6d5f621229286b880e909984df669c2afabb102ce311b13f28
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"getblockdata","params":["0000000012982b6d5f621229286b880e909984df669c2afabb102ce311b13f28"],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
 
 **Example Response**
 
@@ -388,3 +495,4 @@ An array of spaces expected to be in auctions within the given `target`
 
 [^1]: Checkout this outpoint here\
     [https://mempool.space/testnet4/tx/1ea73982abb36cf2c62deced717fbe944c3af89abe768aa454642879b29e5adc#vout=](https://mempool.space/testnet4/tx/1ea73982abb36cf2c62deced717fbe944c3af89abe768aa454642879b29e5adc#vout=1)
+
