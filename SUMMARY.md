@@ -4,23 +4,15 @@
 
 ## Getting Started
 
-* [Installation](getting-started/installation.md)
 * [Quickstart](getting-started/quickstart.md)
 * [Understanding Auctions](getting-started/understanding-auctions.md)
 * [Subspaces](getting-started/subspaces.md)
-* [Resolver](getting-started/resolver.md)
+* [Name resolution](getting-started/resolver.md)
 * [Explorer](https://explorer.spacesprotocol.org)
 
 ## Deep dive
 
-* [Auctions](deep-dive/auctions.md)
-* [Bid PSBT](deep-dive/bid-psbt.md)
-* [Making Bids](deep-dive/making-bids.md)
-* [Registering a Space](deep-dive/registering-a-space.md)
-* [Moving Spaces](deep-dive/moving-spaces.md)
-* [Space Scripts](deep-dive/space-scripts.md)
-* [Covenants](deep-dive/covenants.md)
-* [Tracking UTXOs](deep-dive/tracking-utxos.md)
+* [Spec](deep-dive/auctions.md)
 * [Paper](https://spacesprotocol.org/paper)
 
 ## Space Daemon

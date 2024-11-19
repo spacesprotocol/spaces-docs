@@ -1,41 +1,66 @@
 ---
-description: >-
-  In this guide you will get some testnet4 coins, open auctions and bid on
-  Spaces!
+description: Setup spaces on mainnet
 ---
 
 # Quickstart
 
-<figure><picture><source srcset="../.gitbook/assets/explorer-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/explorer-light-mode.jpg" alt=""></picture><figcaption><p>Spaces in the auctions phase on testnet4 check out the <a href="https://explorer.spacesprotocol.org">explorer</a></p></figcaption></figure>
+### Install Bitcoin Core
 
+It can be installed from the official [download page](https://bitcoincore.org/en/download/).
 
+Configure RPC authentication in `bitcoin.conf`:
 
-### Funding Spaces Wallet
+```
+rpcuser=<your-username>
+rpcpassword=<your-password>
+```
+
+### Install Spaces Daemon
+
+`spaces` is a tiny layer that connects to Bitcoin Core over RPC and scans transactions relevant to the protocol.&#x20;
+
+1. Download the latest binary from [releases](https://github.com/spacesprotocol/spaces/releases) (must be v0.0.4 or higher for mainnet)
+2. Verify installation
+
+```
+spaced --version
+space-cli --version
+```
+
+### Run Spaces
+
+1. Ensure Bitcoin Core is fully synced
+2. Start Spaces daemon
+
+```sh
+spaced --bitcoin-rpc-user <your-rpc-user> --bitcoin-rpc-password <your-rpc-password>
+```
+
+### Create a Spaces Wallet
 
 Create the default wallet and get an address to receive coins
 
 ```sh
-space-cli --chain testnet4 createwallet
-space-cli --chain testnet4 getnewaddress
+space-cli createwallet
+space-cli getnewaddress
 ```
 
-You could get testnet4 coins from one of these faucets:
+Send some BTC to the address you get and check your balance
 
-* [Mempool Faucet](https://mempool.space/testnet4/faucet)
-* [Coinfaucet](https://coinfaucet.eu/en/btc-testnet4/)
-* [Anyone](https://testnet4.anyone.eu.org/)
-* [Stack Exchange List](https://bitcoin.stackexchange.com/questions/17690/is-there-anywhere-to-get-free-testnet-bitcoins/119937#119937)
+```
+space-cli balance
+```
 
-For additional testnet4 resources, checkout this [guide](https://github.com/testnet4/awesome-testnet4).
+### Auction process <a href="#opening-an-auction" id="opening-an-auction"></a>
 
-
+In short, top level spaces are community identifiers limited to \~3600 spaces a year. Every day, the top 10 highest-bid spaces advance from pre-auctions to auctions [learn more](understanding-auctions.md).
 
 ### Opening an auction <a href="#opening-an-auction" id="opening-an-auction"></a>
 
-Open an auction for some Space e.g. `@btc`
+You can check the [explorer](https://explorer.spacesprotocol.org) for currently open auctions . For example to open an auction for the space `@bitcion`
 
 ```bash
-space-cli --chain testnet4 open btc
+space-cli open bitcoin
 ```
 
 You will get a similar output to this
@@ -43,7 +68,7 @@ You will get a similar output to this
 <pre class="language-json"><code class="lang-json">[
   {
     "txid": "<a data-footnote-ref href="#user-content-fn-1">1ea73982abb36cf2c62deced717fbe944c3af89abe768aa454642879b29e5adc</a>",
-    "tags": ["auction-outputs", "commitment"]
+    "tags": ["bidouts", "commitment"]
   },
   {
     "txid": "<a data-footnote-ref href="#user-content-fn-2">792a2fd221e4715d6c4f330fb46309d6f6a7ed4fd0f9c50471b77e643f9885d2</a>",
@@ -52,22 +77,18 @@ You will get a similar output to this
 ]
 </code></pre>
 
-
-
 ### Placing a bid <a href="#placing-a-bid" id="placing-a-bid"></a>
 
 Find one of the spaces [currently in auction](https://explorer.spacesprotocol.org/) and place a bid (amount is in sats)
 
 ```bash
-space-cli --chain testnet4 bid nostr 1500
+space-cli bid nostr 1500
 ```
-
-
 
 ### Check status of a Space <a href="#placing-a-bid" id="placing-a-bid"></a>
 
 ```bash
-space-cli --chain testnet4 getspace btc
+space-cli getspace btc
 ```
 
 You will get something like this
@@ -89,16 +110,14 @@ You will get something like this
 
 You can use `listspaces` command to see all space outputs you own including outputs that are actively in auction.
 
-The `bid` covenant indicates spending this output requires either another bid spend or a registration spend if the claim height is reached [learn more](../deep-dive/covenants.md).
-
-
+The `bid` covenant indicates spending this output requires either another bid spend or a registration spend if the claim height is reached [learn more](broken-reference).
 
 ### Claiming a Space <a href="#placing-a-bid" id="placing-a-bid"></a>
 
 If you're currently winning and the space entered the claim period, you can register it!
 
 ```sh
-space-cli --chain testnet4 register bitcoin
+space-cli register bitcoin
 ```
 
 You will get something like this
