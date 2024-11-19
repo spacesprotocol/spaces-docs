@@ -36,7 +36,7 @@ space-cli --version
 spaced --bitcoin-rpc-user <your-rpc-user> --bitcoin-rpc-password <your-rpc-password>
 ```
 
-### Create a Spaces Wallet
+### Create a wallet
 
 Create the default wallet and get an address to receive coins
 
@@ -85,7 +85,7 @@ Find one of the spaces [currently in auction](https://explorer.spacesprotocol.or
 space-cli bid nostr 1500
 ```
 
-### Check status of a Space <a href="#placing-a-bid" id="placing-a-bid"></a>
+### Check status of a space <a href="#placing-a-bid" id="placing-a-bid"></a>
 
 ```bash
 space-cli getspace btc
@@ -112,7 +112,7 @@ You can use `listspaces` command to see all space outputs you own including outp
 
 The `bid` covenant indicates spending this output requires either another bid spend or a registration spend if the claim height is reached [learn more](broken-reference).
 
-### Claiming a Space <a href="#placing-a-bid" id="placing-a-bid"></a>
+### Claiming a space <a href="#placing-a-bid" id="placing-a-bid"></a>
 
 If you're currently winning and the space entered the claim period, you can register it!
 
