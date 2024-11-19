@@ -167,7 +167,7 @@ The protocol will read any push bytes in the transaction for spends of outputs r
 
 The following are the op codes useable within a space script
 
-<table><thead><tr><th width="195">OP</th><th width="161">Code</th><th width="157">OP Data</th><th>Description</th></tr></thead><tbody><tr><td>OP_OPEN</td><td>0x01</td><td>Length prefixed space name</td><td>Reveals the space name for auction. Requires a <a href="broken-reference">Bid PSBT</a> to be carried in the transaction</td></tr><tr><td>OP_SETFALLBACK</td><td>0x02</td><td>Length prefixed bytes</td><td>Removes the top stack item; associates the given bytes with the space output at the specified index</td></tr><tr><td>OP_RESERVE_1..4</td><td>0xFC to 0xFF</td><td>--</td><td>Marks space as reserved until the specific op code is enabled in a future upgrade</td></tr></tbody></table>
+<table><thead><tr><th width="195">OP</th><th width="161">Code</th><th width="157">OP Data</th><th>Description</th></tr></thead><tbody><tr><td>OP_OPEN</td><td>0x01</td><td>Length prefixed space name</td><td>Reveals the space name for auction. Requires a <a href="broken-reference">Bid PSBT</a> to be carried in the transaction</td></tr><tr><td>OP_SETFALLBACK</td><td>0x02</td><td>Length prefixed bytes</td><td>Associates the given bytes with the spaces being spent. Use this only if necessary as solutions like Fabric are off-chain and more efficient.</td></tr><tr><td>OP_RESERVE_1..4</td><td>0xFC to 0xFF</td><td>--</td><td>Marks space as reserved until the specific op code is enabled in a future upgrade</td></tr></tbody></table>
 
 All other op code values are interperted as a NOP.
 
