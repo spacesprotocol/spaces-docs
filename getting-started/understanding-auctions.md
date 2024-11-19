@@ -1,8 +1,8 @@
-# Understanding Auctions
+# Auctions
 
 Spaces enable auctions with arbitrary bids implemented directly on the Bitcoin blockchain. Auctions are designed as a fair competition for naming rights. Instead of distributing spaces on a first-come, first-served basis, the protocol employs a bidding system. This approach helps ensure that valuable names don't all end up concentrated in the hands of a few quick actors.
 
-Space auctions are restricted to 10 per day to prevent market flooding and to ensure each name receives adequate attention.
+Spaces are restricted to 10 a day to prevent market flooding and to ensure each name receives adequate attention during auctions.
 
 <figure><picture><source srcset="../.gitbook/assets/auctions-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/auctions-light.png" alt=""></picture><figcaption><p>Space lifecycle</p></figcaption></figure>
 
