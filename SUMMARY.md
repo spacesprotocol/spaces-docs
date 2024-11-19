@@ -5,7 +5,7 @@
 ## Getting Started
 
 * [Quickstart](getting-started/quickstart.md)
-* [Understanding Auctions](getting-started/understanding-auctions.md)
+* [Auctions](getting-started/understanding-auctions.md)
 * [Subspaces](getting-started/subspaces.md)
 * [Name resolution](getting-started/resolver.md)
 * [Explorer](https://explorer.spacesprotocol.org)
@@ -15,8 +15,8 @@
 * [Spec](deep-dive/auctions.md)
 * [Paper](https://spacesprotocol.org/paper)
 
-## Space Daemon
+## Spaces Daemon
 
-* [Configuration](space-daemon/configuration.md)
-* [Server API](space-daemon/server-api.md)
-* [Wallet API](space-daemon/wallet-api.md)
+* [Configuration](spaces-daemon/configuration.md)
+* [Server API](spaces-daemon/server-api.md)
+* [Wallet API](spaces-daemon/wallet-api.md)
