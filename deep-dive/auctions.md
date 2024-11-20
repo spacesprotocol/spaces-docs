@@ -151,13 +151,13 @@ Scripts are identified with a 4-byte magic (0xDE repeated) followed by an op cod
 
 For example, to encode the following space script:
 
-<pre><code><strong>OP_OPEN @bitcoin
+<pre><code><strong>OP_OPEN @cosmos
 </strong></code></pre>
 
 It would look like this when embedded as a Bitcoin script:
 
 ```
-OP_PUSHBYTES26 dededede0107626974636f696e
+OP_PUSHBYTES_12 dededede0106636f736d6f73
 OP_DROP
 ```
 
