@@ -110,7 +110,7 @@ You will get something like this
 
 You can use `listspaces` command to see all space outputs you own including outputs that are actively in auction.
 
-The `bid` covenant indicates spending this output requires either another bid spend or a registration spend if the claim height is reached [learn more](broken-reference).
+The `bid` covenant indicates spending this output requires either another bid spend or a registration spend if the claim height is reached [learn more](../deep-dive/auctions.md#covenants).
 
 ### Claiming a space <a href="#placing-a-bid" id="placing-a-bid"></a>
 
