@@ -5,14 +5,14 @@
 ## Getting Started
 
 * [Quickstart](getting-started/quickstart.md)
-* [Auctions](getting-started/understanding-auctions.md)
+* [Auctions](getting-started/auctions.md)
 * [Subspaces](getting-started/subspaces.md)
 * [Name resolution](getting-started/resolver.md)
 * [Explorer](https://explorer.spacesprotocol.org)
 
 ## Deep dive
 
-* [Spec](deep-dive/auctions.md)
+* [Spec](deep-dive/spec.md)
 * [Paper](https://spacesprotocol.org/paper)
 
 ## Spaces Daemon

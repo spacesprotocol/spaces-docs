@@ -150,8 +150,7 @@ curl -X POST http://127.0.0.1:7224 \
 {% endtab %}
 {% endtabs %}
 
-**Example Response**
-Responds with an outpoint with `txid:vout` format.
+**Example Response** Responds with an outpoint with `txid:vout` format.
 
 ```json
 b2819258b2416314a36e8f66840ebb5682e2600a07c28a04b4e27fe0b51b46fc:1
@@ -212,7 +211,7 @@ curl -X POST http://127.0.0.1:7224 \
 
 ## Estimate bid
 
-<mark style="color:green;">`estimatebid`</mark> estimates the required bid to make it into the [auctions phase](../getting-started/understanding-auctions.md#auctions) within the target block:
+<mark style="color:green;">`estimatebid`</mark> estimates the required bid to make it into the [auctions phase](../getting-started/auctions.md#auctions) within the target block:
 
 **Params**
 
@@ -236,8 +235,7 @@ curl -X POST http://127.0.0.1:7224 \
 {% endtab %}
 {% endtabs %}
 
-**Example Response**
-Responds with an amount in Satoshis
+**Example Response** Responds with an amount in Satoshis
 
 ```json
 2000
@@ -267,8 +265,7 @@ curl -X POST http://127.0.0.1:7224 \
 {% endtab %}
 {% endtabs %}
 
-**Example Response**
-An array of spaces expected to be in auctions within the given `target`
+**Example Response** An array of spaces expected to be in auctions within the given `target`
 
 ```json
 [
@@ -495,4 +492,3 @@ curl -X POST http://127.0.0.1:7224 \
 
 [^1]: Checkout this outpoint here\
     [https://mempool.space/testnet4/tx/1ea73982abb36cf2c62deced717fbe944c3af89abe768aa454642879b29e5adc#vout=](https://mempool.space/testnet4/tx/1ea73982abb36cf2c62deced717fbe944c3af89abe768aa454642879b29e5adc#vout=1)
-

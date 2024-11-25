@@ -53,7 +53,7 @@ space-cli balance
 
 ### Auction process <a href="#opening-an-auction" id="opening-an-auction"></a>
 
-In short, top level spaces are community identifiers limited to \~3600 spaces a year. Every day, the top 10 highest-bid spaces advance from pre-auctions to auctions [learn more](understanding-auctions.md).
+In short, top level spaces are community identifiers limited to \~3600 spaces a year. Every day, the top 10 highest-bid spaces advance from pre-auctions to auctions [learn more](auctions.md).
 
 ### Opening an auction <a href="#opening-an-auction" id="opening-an-auction"></a>
 
@@ -110,7 +110,7 @@ You will get something like this
 
 You can use `listspaces` command to see all space outputs you own including outputs that are actively in auction.
 
-The `bid` covenant indicates spending this output requires either another bid spend or a registration spend if the claim height is reached [learn more](../deep-dive/auctions.md#covenants).
+The `bid` covenant indicates spending this output requires either another bid spend or a registration spend if the claim height is reached [learn more](../deep-dive/spec.md#covenants).
 
 ### Claiming a space <a href="#placing-a-bid" id="placing-a-bid"></a>
 
