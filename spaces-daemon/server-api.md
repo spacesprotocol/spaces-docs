@@ -387,7 +387,7 @@ only available via JSON-RPC
 ```bash
 curl -X POST http://127.0.0.1:7224 \
      -H "Content-Type: application/json" \
-     -d '{"jsonrpc":"2.0","method":"gettxmeta","params":["00000000003a037a98a512ca38147af1d3a21d858596d24f83d65fbf2f6d5131"],"id":1}'
+     -d '{"jsonrpc":"2.0","method":"gettxmeta","params":["394ebef5203c4306c3f7a6d1a5c2058bac130deb24c1d7725094b31d1ff54ea4"],"id":1}'
 ```
 {% endtab %}
 {% endtabs %}

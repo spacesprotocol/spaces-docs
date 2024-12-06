@@ -1,89 +1,248 @@
 # Wallet API
 
-Both the wallet and server use [RPC](server-api.md) over same endpoint except that all wallet methods are prefixed with `wallet.`
+Both the wallet and server use [JSON-RPC](server-api.md) over the same endpoint. 
+
+CLI commands accept an optional `--wallet` parameter to specify which wallet to use. If not specified, it defaults to `default`.
+
+RPC commands differ from their CLI counterparts due to legacy compatibility reasons. This may be harmonized in future releases.
+
+## Create wallet
+
+<mark style="color:green;">`createwallet`</mark> creates and loads a new wallet
+
+<table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>name</code></td><td>string</td><td>Wallet name</td></tr></tbody></table>
+
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 createwallet -w newwallet
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"walletcreate","params":["newwallet"],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
+
+```json
+null
+```
+
+## Load wallet
+
+<mark style="color:green;">`loadwallet`</mark> creates and loads a new wallet
+
+<table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>name</code></td><td>string</td><td>Wallet name</td></tr></tbody></table>
+
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 loadwallet
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"walletload","params":["default"],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
+
+```json
+null
+```
+
+## Export wallet
+
+<mark style="color:green;">`exportwallet`</mark> exports the wallet in JSON format. CLI command saves the response to the target file.
+
+**Params**
+
+<table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>name</code></td><td>string</td><td>Wallet name</td></tr></tbody></table>
+
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 exportwallet -w mywallet wallet.json
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"walletexport","params":["mywallet"],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
+
+```json
+{
+  "descriptor": "...",
+  "blockheight": 41530,
+  "label": "mywallet"
+}
+```
 
 ## Import wallet
 
-<mark style="color:green;">`walletexport`</mark> retrieve the current state of the spaces daemon
+<mark style="color:green;">`importwallet`</mark> imports the wallet from JSON description. CLI command loads the description from the source file.
 
 **Params**
 
 <table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>content</code></td><td>string (json)</td><td>Same format as <a href="wallet-api.md#export-wallet">export wallet</a></td></tr></tbody></table>
 
-**Example Response**
-
-```json
-{
-  "descriptor":"...",
-  "spaces_descriptor":"....",
-  "block_height":41530,
-  "label":"walletname"
-}
+{% tabs %}
+{% tab title="CLI" %}
 ```
+space-cli --chain testnet4 importwallet wallet.json
+```
+{% endtab %}
 
-## Export wallet
-
-<mark style="color:green;">`walletexport`</mark> retrieve the current state of the spaces daemon
-
-**Params**
-
-<table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>name</code></td><td>string</td><td>Wallet name</td></tr></tbody></table>
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"walletimport","params":[{"descriptor":"...","blockheight":41530,"label":"mywallet"}],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
 
 **Example Response**
 
 ```json
-{
-  "descriptor":"...",
-  "spaces_descriptor":"....",
-  "block_height":41530,
-  "label":"walletname"
-}
+null
 ```
 
 ## Get Wallet Info
 
-<mark style="color:green;">`walletgetinfo`</mark> retrieve the current state of the spaces daemon
+<mark style="color:green;">`getwalletinfo`</mark> retrieve the wallet info
 
 **Params**
 
 <table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>name</code></td><td>string</td><td>Wallet name</td></tr></tbody></table>
 
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 getwalletinfo -w mywallet
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"walletgetinfo","params":["mywallet"],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
 **Example Response**
 
 ```json
 {
-  "label": "default",
-  "start_block": 41530,
-  "tip": 41818,
+  "label": "mywallet",
+  "start_block": 56801,
+  "tip": 56821,
   "descriptors": [
-    ....
+    {
+      "descriptor": "...",
+      "internal": false,
+      "spaces": true
+    },
+    {
+      "descriptor": "...",
+      "internal": true,
+      "spaces": true
+    }
   ]
 }
 ```
 
 ## Get Balance
 
-<mark style="color:green;">`walletgetbalance`</mark> get the wallet balance
+<mark style="color:green;">`balance`</mark> gets the wallet balance
 
 **Params**
 
-<table><thead><tr><th width="191">Name</th><th width="178">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>wallet</code></td><td>string</td><td>Wallet name</td></tr></tbody></table>
+<table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>name</code></td><td>string</td><td>Wallet name</td></tr></tbody></table>
 
-**Response**
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 balance -w mywallet
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"walletgetbalance","params":["mywallet"],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
 
 ```json
 {
-  "confirmed": {
-    "total": 0,
-    "spendable": 0,
+  "balance": 0,
+  "details": {
     "immature": 0,
-    "locked": 0
-  },
-  "unconfirmed": {
-    "total": 0,
-    "locked": 0
+    "trusted_pending": 0,
+    "untrusted_pending": 0,
+    "confirmed": 0,
+    "dust": 0
   }
 }
+```
+
+## Get New Address
+
+CLI has separated commands instead of additional `kind` param.
+
+<mark style="color:green;">`getnewaddress`</mark> gets a new Bitcoin address suitable for receiving coins compatible with most bitcoin wallets.
+
+<mark style="color:green;">`getnewspaceaddress`</mark> gets a new Bitcoin address suitable for receiving spaces and coins (Spaces compatible bitcoin wallets only).
+
+**Params**
+
+<table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>name</code></td><td>string</td><td>Wallet name</td></tr><tr><td><code>kind</code></td><td>string</td><td>Coin or Space</td></tr></tbody></table>
+
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 getnewaddress -w mywallet
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"walletgetnewaddress","params":["mywallet", "Coin"],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
+
+```json
+"tb1phg2rcjunxew9eqruehs2ejqmyjhzwnzfzrvmyl3ugaezpvf5d87qwj763n"
 ```
 
 ## Batch Request Type
