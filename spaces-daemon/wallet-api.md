@@ -213,7 +213,7 @@ curl -X POST http://127.0.0.1:7224 \
 
 ## Get New Address
 
-CLI has separated commands instead of additional `kind` param.
+CLI has separate commands instead for different `kind` values.
 
 <mark style="color:green;">`getnewaddress`</mark> gets a new Bitcoin address suitable for receiving coins compatible with most bitcoin wallets.
 
@@ -221,7 +221,7 @@ CLI has separated commands instead of additional `kind` param.
 
 **Params**
 
-<table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>name</code></td><td>string</td><td>Wallet name</td></tr><tr><td><code>kind</code></td><td>string</td><td>Coin or Space</td></tr></tbody></table>
+<table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>name</code></td><td>string</td><td>Wallet name</td></tr><tr><td><code>kind</code></td><td>string</td><td><code>Coin</code> or <code>Space</code></td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="CLI" %}
@@ -245,50 +245,101 @@ curl -X POST http://127.0.0.1:7224 \
 "tb1phg2rcjunxew9eqruehs2ejqmyjhzwnzfzrvmyl3ugaezpvf5d87qwj763n"
 ```
 
-## Batch Request Type
+## Send Request
 
-Can be passed to [`walletsendrequest`](wallet-api.md#send-request) to create one or multiple transactions
+<mark style="color:green;">`walletsendrequest`</mark> send one or multiple requests
 
-| Property          | Type                                                              | Description                                                                                                                                                                                            |
-| ----------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `auction_outputs` | number (optional)                                                 | Create the specified number of auction outputs. These are output pairs used during [bid transactions ](broken-reference). If null, it will create the minimum number required to satisfy the requests. |
-| `requests`        | JSON array of [WalletRequests](wallet-api.md#wallet-request-type) | Bundles one or multiple requests                                                                                                                                                                       |
-| `fee_rate`        | number (optional)                                                 | Fee rate in sat/kwu. If null, it will attempt to use `estimatesmartfee` instead.                                                                                                                       |
-| `dust`            | number (optional)                                                 | Custom dust amount to use for auction outputs                                                                                                                                                          |
-| `force`           | bool (optional)                                                   | Forces the transaction to be created even if it will be rejected by the protocol or results in revoking the space (mainly used for testing)                                                            |
+CLI has separate commands instead: `open`, `bid`, `register`, `transfer`, `send` and `createbidouts`
 
-## Wallet Request Type
+**Params**
+
+| Name    | Type                                                             | Description                                 |
+|---------|------------------------------------------------------------------|---------------------------------------------|
+|`name`   | string                                                           | Wallet name                                 |
+|`request`| JSON object of [Batch Request](wallet-api.md#batch-request-type) | Request containing one or more transactions |
+
+### Batch Request Type
+
+| Property          | Type                                                               | Description                                                                                                                                                                                            |
+| ----------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `bidouts`         | number (optional)                                                  | Create the specified number of auction outputs. These are output pairs used during the bidding process. If null, it will create the minimum number required to satisfy the requests.                   |
+| `requests`        | JSON array of [Wallet Requests](wallet-api.md#wallet-request-type) | Bundles one or multiple requests                                                                                                                                                                       |
+| `fee_rate`        | number (optional)                                                  | Fee rate in sat/vB. If null, it will attempt to use `estimatesmartfee` instead.                                                                                                                        |
+| `dust`            | number (optional)                                                  | Custom dust amount to use for auction outputs                                                                                                                                                          |
+| `force`           | bool                                                               | Forces the transaction to be created even if it will be rejected by the protocol or results in revoking the space (mainly used for testing)                                                            |
+| `confirmed_only`  | bool                                                               | Use only confirmed UTXOs                                                                                                                                                                               |
+| `skip_tx_check`   | bool                                                               | Skip tx checker (not recommended)                                                                                                                                                                      |
+
+### Wallet Request Type
 
 A single wallet request
 
 | Property  | Type   | Description                                                                                                                                                                           |
 | --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request` | string | The transaction/request type. Can be `open`, `bid`, `register`, `sendspaces`, or `sendcoins`                                                                                          |
+| `request` | string | The transaction/request type. Can be `open`, `bid`, `register`, `execute`, `transfer`, or `sendcoins`                                                                                          |
 | `name`    | string | The space name                                                                                                                                                                        |
 | `amount`  | string | Amount in Satoshis. Required for `open`, `bid` and `sendcoins` transactions.                                                                                                          |
-| `to`      | string | <p>Required for <code>sendspaces</code> and <code>sendcoins</code> requests. Optional for <code>register</code> transactions.</p><p>Can be a Bitcoin address or a space name.<br></p> |
+| `to`      | string | <p>Required for <code>transfer</code> and <code>sendcoins</code> requests. Optional for <code>register</code> transactions.</p><p>Can be a Bitcoin address or a space name.<br></p> |
 
-## Send Request
 
-<mark style="color:green;">`walletsendrequest`</mark> send one or multiple requests
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 open @mynewspace 1000
+```
+{% endtab %}
 
-**Params**
-
-<table><thead><tr><th width="191">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>wallet</code></td><td>string</td><td>Wallet name</td></tr><tr><td><code>body</code></td><td>JSON</td><td>A <a href="wallet-api.md#batch-request-type">Batch Request</a> object</td></tr></tbody></table>
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{
+       "jsonrpc": "2.0",
+       "method": "walletsendrequest",
+       "params": [
+         "default",
+         {
+           "bidouts": null,
+           "requests": [
+             {
+               "request": "open",
+               "name": "@mynewspace",
+               "amount": 1000
+             }
+           ],
+           "fee_rate": null,
+           "dust": null,
+           "force": false,
+           "confirmed_only": false,
+           "skip_tx_check": false
+         }
+       ],
+       "id": 1
+     }'
+```
+{% endtab %}
+{% endtabs %}
 
 **Response**
 
 ```json
-[
-  {
-    "txid": "1ea73982abb36cf2c62deced717fbe944c3af89abe768aa454642879b29e5adc",
-    "tags": ["auction-outputs", "commitment"]
-  },
-  {
-    "txid": "792a2fd221e4715d6c4f330fb46309d6f6a7ed4fd0f9c50471b77e643f9885d2",
-    "tags": ["open"]
-  }
-]
+{
+  "result": [
+    {
+      "txid": "3529a729fc2dff2184339f1accf7c8fc3139bcc25f0b874816b6522daea7ee5b",
+      "tags": [
+        "bidouts",
+        "commitment"
+      ]
+    },
+    {
+      "txid": "747c3877dea45c065b40a61b190d2160e917124bc46054c6c80e7f6ee6bc7995",
+      "tags": [
+        "open"
+      ]
+    }
+  ]
+}
 ```
 
 ## Bump Fee
