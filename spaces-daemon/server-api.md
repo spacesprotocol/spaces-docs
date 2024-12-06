@@ -207,8 +207,9 @@ curl -X POST http://127.0.0.1:7224 \
 {% tab title="Other UTXOs" %}
 ```json
 {
-   "value": 662,
-   "script_pubkey": "5120882cd5b0ef333be2efd7efd9bea0953f894677f1d5a638c8a3d13734e99d22e6"
+  "n": 0,
+  "value": 662,
+  "script_pubkey": "512065a7b5051fe33239e6ddb0d69e809a74d1702fde541bdf3431c6994b72317f33"
 }
 ```
 {% endtab %}
@@ -216,7 +217,7 @@ curl -X POST http://127.0.0.1:7224 \
 
 ## Estimate bid
 
-<mark style="color:green;">`estimatebid`</mark> estimates the required bid to make it into the [auctions phase](../getting-started/auctions.md#auctions) within the target block:
+<mark style="color:green;">`estimatebid`</mark> estimates the required bid to make it into the [auctions phase](../getting-started/auctions.md#auctions) for the given interval (in 144 block increments)::
 
 **Params**
 
@@ -303,7 +304,7 @@ only available via JSON-RPC
 ```bash
 curl -X POST http://127.0.0.1:7224 \
      -H "Content-Type: application/json" \
-     -d '{"jsonrpc":"2.0","method":"getblockmeta","params":["000000000157a35e916d9b6bfad6aee098ba7f0960fc0fe27c7f3e17bccec289"],"id":1}'
+     -d '{"jsonrpc":"2.0","method":"getblockmeta","params":["00000000003a037a98a512ca38147af1d3a21d858596d24f83d65fbf2f6d5131"],"id":1}'
 ```
 {% endtab %}
 {% endtabs %}
@@ -312,54 +313,103 @@ curl -X POST http://127.0.0.1:7224 \
 
 ```json
 {
-  "height": 56558,
+  "height": 55879,
   "tx_meta": [
     {
-      "txid": "83e11748b0eb15b4ee26f35d3bffe13d35d66d055de4a42a41a06d646879f994",
-      "spends": [],
+      "txid": "394ebef5203c4306c3f7a6d1a5c2058bac130deb24c1d7725094b31d1ff54ea4",
+      "spends": [
+        {
+          "n": 0
+        }
+      ],
       "creates": [
         {
-          "n": 1,
+          "n": 0,
           "value": 662,
-          "script_pubkey": "512027453c85a747cdc411f3b27e1cc475c299f3bb18498316b7c56a977bb4e6b2dd"
-        },
-        {
-          "n": 2,
-          "value": 662,
-          "script_pubkey": "5120c75ee481697d60b51e899875d9ba1308090dc8d45d786cfe7188bc3918da8a81"
+          "script_pubkey": "512065a7b5051fe33239e6ddb0d69e809a74d1702fde541bdf3431c6994b72317f33"
         }
       ],
       "updates": []
     },
     {
-      "txid": "d2c4179772bcde20e78fe4762d17d2192f771d1edfc467b68e4e56c4dd1e8deb",
+      "txid": "f811529d79c9fc808c240a1b5087ba19610c4177a01ffa8047c3cc143cf3eb1a",
       "spends": [
         {
+          "n": 0
+        },
+        {
           "n": 1
+        },
+        {
+          "n": 2
+        },
+        {
+          "n": 3
         }
       ],
-      "creates": [],
-      "updates": [
+      "creates": [
         {
-          "type": "bid",
-          "output": {
-            "txid": "83e11748b0eb15b4ee26f35d3bffe13d35d66d055de4a42a41a06d646879f994",
-            "n": 1,
-            "name": "@btc",
-            "covenant": {
-              "type": "bid",
-              "burn_increment": 1000,
-              "signature": "05cd995322bbaa6a8d7d95b1a8e68c3c9fb68c679becfe7541ef6c5b7d4f97662091b8e48cc687845fa237ef6b2ac66bb8c2c2fdb7f92e0c608cbfb61e4308eb",
-              "total_burned": 1000,
-              "claim_height": null
-            },
-            "value": 662,
-            "script_pubkey": "512027453c85a747cdc411f3b27e1cc475c299f3bb18498316b7c56a977bb4e6b2dd"
-          }
+          "n": 1,
+          "name": "@bitcoin",
+          "covenant": {
+            "type": "transfer",
+            "expire_height": 108439,
+            "data": "68656c6c6f20776f726c64"
+          },
+          "value": 666,
+          "script_pubkey": "5120611454515f9fe8c656f80c51de229dc5d9cba9a05d00486b43a1e9033ef6393b"
         }
-      ]
+      ],
+      "updates": []
     }
   ]
+}
+```
+
+## Get Transaction Meta
+
+<mark style="color:green;">`gettxmeta`</mark> Retrieves all transactions relevant to spaces for the given block (requires `-txindex` to be enabled)
+
+**Params**
+
+| Name    | Type   | Description                      |
+| ------- | ------ | -------------------------------- |
+| `tx_id` | string | The transaction id as hex string |
+
+{% tabs %}
+{% tab title="CLI" %}
+```
+only available via JSON-RPC
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7224 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"gettxmeta","params":["00000000003a037a98a512ca38147af1d3a21d858596d24f83d65fbf2f6d5131"],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
+
+```json
+{
+  "txid": "394ebef5203c4306c3f7a6d1a5c2058bac130deb24c1d7725094b31d1ff54ea4",
+  "spends": [
+    {
+      "n": 0
+    }
+  ],
+  "creates": [
+    {
+      "n": 0,
+      "value": 662,
+      "script_pubkey": "512065a7b5051fe33239e6ddb0d69e809a74d1702fde541bdf3431c6994b72317f33"
+    }
+  ],
+  "updates": []
 }
 ```
 
