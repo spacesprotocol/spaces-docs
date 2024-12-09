@@ -372,9 +372,9 @@ curl -X POST http://127.0.0.1:7224 \
 
 **Params**
 
-| Name    | Type   | Description                      |
-| ------- | ------ | -------------------------------- |
-| `tx_id` | string | The transaction id as hex string |
+| Name    | Type   | Description                        |
+| ------- | ------ | ---------------------------------- |
+| `txid`  | string | The transaction id as a hex string |
 
 {% tabs %}
 {% tab title="CLI" %}
