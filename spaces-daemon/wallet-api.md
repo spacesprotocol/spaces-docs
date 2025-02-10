@@ -15,13 +15,13 @@ RPC commands differ from their CLI counterparts due to legacy compatibility reas
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 createwallet -w newwallet
+space-cli createwallet -w newwallet
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletcreate","params":["newwallet"],"id":1}'
 ```
@@ -43,13 +43,13 @@ null
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 loadwallet
+space-cli loadwallet
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletload","params":["default"],"id":1}'
 ```
@@ -73,13 +73,13 @@ null
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 exportwallet -w mywallet wallet.json
+space-cli exportwallet -w mywallet wallet.json
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletexport","params":["mywallet"],"id":1}'
 ```
@@ -107,13 +107,13 @@ curl -X POST http://127.0.0.1:7224 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 importwallet wallet.json
+space-cli importwallet wallet.json
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletimport","params":[{"descriptor":"...","blockheight":41530,"label":"mywallet"}],"id":1}'
 ```
@@ -137,13 +137,13 @@ null
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 getwalletinfo -w mywallet
+space-cli getwalletinfo -w mywallet
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletgetinfo","params":["mywallet"],"id":1}'
 ```
@@ -183,13 +183,13 @@ curl -X POST http://127.0.0.1:7224 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 balance -w mywallet
+space-cli balance -w mywallet
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletgetbalance","params":["mywallet"],"id":1}'
 ```
@@ -226,13 +226,13 @@ CLI has separate commands instead for different `kind` values.
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 getnewaddress -w mywallet
+space-cli getnewaddress -w mywallet
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletgetnewaddress","params":["mywallet", "Coin"],"id":1}'
 ```
@@ -286,13 +286,13 @@ A single wallet request
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 open @mynewspace 1000
+space-cli open @mynewspace 1000
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{
        "jsonrpc": "2.0",
@@ -357,13 +357,13 @@ curl -X POST http://127.0.0.1:7224 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 bumpfee 14804a155846b56a87c6d90088d8174e8e8640d5bcaa00132a4968e105b48d27 --fee-rate 1000
+space-cli bumpfee 14804a155846b56a87c6d90088d8174e8e8640d5bcaa00132a4968e105b48d27 --fee-rate 1000
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletbumpfee","params":["default", "14804a155846b56a87c6d90088d8174e8e8640d5bcaa00132a4968e105b48d27", 1000],"id":1}'
 ```
@@ -398,13 +398,13 @@ curl -X POST http://127.0.0.1:7224 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 sell @space3 10000
+space-cli sell @space3 10000
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7218 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletsell","params":["default", "@space", 10000],"id":1}'
 ```
@@ -435,13 +435,13 @@ curl -X POST http://127.0.0.1:7218 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 verifylisting --signature ........ --seller bcrts1pr5ux9k9jngxy8jjxyhwv7w0hvztyteklsn5y47urtwhcmdppgqpqrj9p9g @space 10000
+space-cli verifylisting --signature ........ --seller bcrts1pr5ux9k9jngxy8jjxyhwv7w0hvztyteklsn5y47urtwhcmdppgqpqrj9p9g @space 10000
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7218 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{
         "jsonrpc": "2.0",
@@ -480,13 +480,13 @@ null
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 buy --signature ........ --seller bcrts1pr5ux9k9jngxy8jjxyhwv7w0hvztyteklsn5y47urtwhcmdppgqpqrj9p9g @space 10000
+space-cli buy --signature ........ --seller bcrts1pr5ux9k9jngxy8jjxyhwv7w0hvztyteklsn5y47urtwhcmdppgqpqrj9p9g @space 10000
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7218 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{
         "jsonrpc": "2.0",
@@ -538,13 +538,13 @@ curl -X POST http://127.0.0.1:7218 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 signmessage @testspace message
+space-cli signmessage @testspace message
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7218 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletsignmessage","params":["default", "@testspace", "6d657373616765"],"id":1}'
 ```
@@ -572,13 +572,13 @@ curl -X POST http://127.0.0.1:7218 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 --signature 673ef14b408979ab8bc9fcae23dc309187999189fdd429128f899763de8951ded9337f0861cb60e50eded5a9344796a6810bf2186a4bc9fd27d2bb45ee23ded8 @testspace message
+space-cli --signature 673ef14b408979ab8bc9fcae23dc309187999189fdd429128f899763de8951ded9337f0861cb60e50eded5a9344796a6810bf2186a4bc9fd27d2bb45ee23ded8 @testspace message
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7218 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{
         "jsonrpc": "2.0",
@@ -613,13 +613,13 @@ null
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 listspaces
+space-cli listspaces
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletlistspaces","params":["default"],"id":1}'
 ```
@@ -690,13 +690,13 @@ curl -X POST http://127.0.0.1:7224 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 listunspent
+space-cli listunspent
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletlistunspent","params":["default"],"id":1}'
 ```
@@ -802,13 +802,13 @@ curl -X POST http://127.0.0.1:7224 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 listbidouts
+space-cli listbidouts
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletlistbidouts","params":["default"],"id":1}'
 ```
@@ -854,13 +854,13 @@ curl -X POST http://127.0.0.1:7224 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 listtransactions
+space-cli listtransactions
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"walletlisttransactions","params":["default",5,0],"id":1}'
 ```

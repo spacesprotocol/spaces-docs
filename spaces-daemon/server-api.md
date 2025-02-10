@@ -2,7 +2,7 @@
 
 The daemon implements [JSON RPC](https://www.jsonrpc.org/specification), so you can use any RPC client to communicate with it or write your own. A basic request over HTTP would look like this (using [testnet4 ](configuration.md)endpoint)
 
-<mark style="color:green;">`POST`</mark> `http://127.0.0.1:7224`
+<mark style="color:green;">`POST`</mark> `http://127.0.0.1:7225`
 
 ```json
 {
@@ -22,13 +22,13 @@ The daemon implements [JSON RPC](https://www.jsonrpc.org/specification), so you 
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 getserverinfo
+space-cli getserverinfo
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"getserverinfo","params":[],"id":1}'
 ```
@@ -56,13 +56,13 @@ curl -X POST http://127.0.0.1:7224 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 getspace @bitcoin
+space-cli getspace @bitcoin
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"getspace","params":["@bitcoin"],"id":1}'
 ```
@@ -147,7 +147,7 @@ only available via JSON-RPC
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"getspaceowner","params":["@bitcoin"],"id":1}'
 ```
@@ -172,13 +172,13 @@ f811529d79c9fc808c240a1b5087ba19610c4177a01ffa8047c3cc143cf3eb1a:1
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 getspaceout "f811529d79c9fc808c240a1b5087ba19610c4177a01ffa8047c3cc143cf3eb1a:1"
+space-cli getspaceout "f811529d79c9fc808c240a1b5087ba19610c4177a01ffa8047c3cc143cf3eb1a:1"
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"getspaceout","params":["f811529d79c9fc808c240a1b5087ba19610c4177a01ffa8047c3cc143cf3eb1a:1"],"id":1}'
 ```
@@ -226,13 +226,13 @@ curl -X POST http://127.0.0.1:7224 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 estimatebid 0
+space-cli estimatebid 0
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"estimatebid","params":[0],"id":1}'
 ```
@@ -256,13 +256,13 @@ curl -X POST http://127.0.0.1:7224 \
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli --chain testnet4 getrollout 0
+space-cli getrollout 0
 ```
 {% endtab %}
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"getrollout","params":[0],"id":1}'
 ```
@@ -302,7 +302,7 @@ only available via JSON-RPC
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"getblockmeta","params":["00000000003a037a98a512ca38147af1d3a21d858596d24f83d65fbf2f6d5131"],"id":1}'
 ```
@@ -385,7 +385,7 @@ only available via JSON-RPC
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{"jsonrpc":"2.0","method":"gettxmeta","params":["394ebef5203c4306c3f7a6d1a5c2058bac130deb24c1d7725094b31d1ff54ea4"],"id":1}'
 ```
@@ -432,7 +432,7 @@ only available via JSON-RPC
 
 {% tab title="cURL" %}
 ```bash
-curl -X POST http://127.0.0.1:7224 \
+curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
      -d '{
         "method": "checkpackage",
