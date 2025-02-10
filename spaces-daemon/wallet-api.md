@@ -8,7 +8,7 @@ RPC commands differ from their CLI counterparts due to legacy compatibility reas
 
 ## Create wallet
 
-<mark style="color:green;">`createwallet`</mark> creates and loads a new wallet
+<mark style="color:green;">`walletcreate`</mark> creates and loads a new wallet
 
 <table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>name</code></td><td>string</td><td>Wallet name</td></tr></tbody></table>
 
@@ -36,7 +36,7 @@ null
 
 ## Load wallet
 
-<mark style="color:green;">`loadwallet`</mark> creates and loads a new wallet
+<mark style="color:green;">`walletload`</mark> creates and loads a new wallet
 
 <table><thead><tr><th width="223">Name</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>name</code></td><td>string</td><td>Wallet name</td></tr></tbody></table>
 
@@ -64,7 +64,7 @@ null
 
 ## Export wallet
 
-<mark style="color:green;">`exportwallet`</mark> exports the wallet in JSON format. CLI command saves the response to the target file.
+<mark style="color:green;">`walletexport`</mark> exports the wallet in JSON format. CLI command saves the response to the target file.
 
 **Params**
 
@@ -249,21 +249,21 @@ curl -X POST http://127.0.0.1:7224 \
 
 <mark style="color:green;">`walletsendrequest`</mark> send one or multiple requests
 
-CLI has separate commands instead: `open`, `bid`, `register`, `transfer`, `send` and `createbidouts`
+CLI has separate commands instead: `open`, `bid`, `register`, `transfer`, `renew` and `createbidouts`
 
 **Params**
 
 | Name    | Type                                                             | Description                                 |
 |---------|------------------------------------------------------------------|---------------------------------------------|
 |`name`   | string                                                           | Wallet name                                 |
-|`request`| JSON object of [Batch Request](wallet-api.md#batch-request-type) | Request containing one or more transactions |
+|`request`| [Batch Request](wallet-api.md#batch-request-type)                | Request containing one or more transactions |
 
 ### Batch Request Type
 
 | Property          | Type                                                               | Description                                                                                                                                                                                            |
 | ----------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `bidouts`         | number (optional)                                                  | Create the specified number of auction outputs. These are output pairs used during the bidding process. If null, it will create the minimum number required to satisfy the requests.                   |
-| `requests`        | JSON array of [Wallet Requests](wallet-api.md#wallet-request-type) | Bundles one or multiple requests                                                                                                                                                                       |
+| `bidouts`         | number (optional)                                                  | Create the specified number of auction outputs. These are output pairs used during the bidding process. If null, it will create several to satisfy the requests.                                       |
+| `requests`        | array of [Wallet Requests](wallet-api.md#wallet-request-type)      | Bundles one or multiple requests                                                                                                                                                                       |
 | `fee_rate`        | number (optional)                                                  | Fee rate in sat/vB. If null, it will attempt to use `estimatesmartfee` instead.                                                                                                                        |
 | `dust`            | number (optional)                                                  | Custom dust amount to use for auction outputs                                                                                                                                                          |
 | `force`           | bool                                                               | Forces the transaction to be created even if it will be rejected by the protocol or results in revoking the space (mainly used for testing)                                                            |
@@ -274,12 +274,13 @@ CLI has separate commands instead: `open`, `bid`, `register`, `transfer`, `send`
 
 A single wallet request
 
-| Property  | Type   | Description                                                                                                                                                                           |
-| --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request` | string | The transaction/request type. Can be `open`, `bid`, `register`, `execute`, `transfer`, or `sendcoins`                                                                                 |
-| `name`    | string | The space name                                                                                                                                                                        |
-| `amount`  | string | Amount in Satoshis. Required for `open`, `bid` and `sendcoins` transactions.                                                                                                          |
-| `to`      | string | Recipient Bitcoin address or a space name. Required for <code>transfer</code> and <code>sendcoins</code> requests. Optional for <code>register</code> transactions.                   |
+| Property  | Type             | Description                                                                                                                                                                           |
+| --------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `request` | string           | The transaction/request type. Can be `open`, `bid`, `register`, `transfer`, `sendcoins` or `execute`.                                                                                 |
+| `name`    | string           | The space name. Required for `open`, `bid` and `register` transactions.                                                                                                                                                                              |
+| `spaces`  | array of strings | The spaces names. Required for `transfer` transaction.                                                                                                                                                                              |
+| `amount`  | string           | Amount in satoshis. Required for `open`, `bid` and `sendcoins` transactions.                                                                                                          |
+| `to`      | string           | Recipient Bitcoin address or a space name. Required for `transfer` and `sendcoins` requests. Optional for `register` transactions.                                                    |
 
 
 {% tabs %}
@@ -350,7 +351,7 @@ curl -X POST http://127.0.0.1:7224 \
 |-------------------|--------------------|-------------------------------------|
 | `name`            | string             | Wallet name                         |
 | `txid`            | string             | The transaction id as a hex string  |
-| `fee_rate`        | number             | Fee rate in sat/vB                  |
+| `fee_rate`        | number (optional)  | Fee rate in sat/vB                  |
 | `skip_tx_check`   | bool               | Skip tx checker (not recommended)   |
 
 {% tabs %}
@@ -382,9 +383,226 @@ curl -X POST http://127.0.0.1:7224 \
 ]
 ```
 
+## Sell
+
+<mark style="color:green;">`walletsell`</mark> creates PSBT which can be used to sell the space
+
+**Params**
+
+| Name              | Type               | Description                         |
+|-------------------|--------------------|-------------------------------------|
+| `name`            | string             | Wallet name                         |
+| `space`           | string             | The space name                      |
+| `price`           | number             | Price in satoshis                   |
+
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 sell @space3 10000
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7218 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"walletsell","params":["default", "@space", 10000],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
+
+```json
+{
+  "space": "@space",
+  "price": 10000,
+  "seller": "bcrts1pr5ux9k9jngxy8jjxyhwv7w0hvztyteklsn5y47urtwhcmdppgqpqrj9p9g",
+  "signature": "........"
+}
+```
+
+## Verify Listing
+
+<mark style="color:green;">`verifylisting`</mark> verify the space sale listing
+
+**Params**
+
+| Name              | Type               | Description                         |
+|-------------------|--------------------|-------------------------------------|
+| `listing`         | object             | The `walletsell` output             |
+
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 verifylisting --signature ........ --seller bcrts1pr5ux9k9jngxy8jjxyhwv7w0hvztyteklsn5y47urtwhcmdppgqpqrj9p9g @space 10000
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7218 \
+     -H "Content-Type: application/json" \
+     -d '{
+        "jsonrpc": "2.0",
+        "method": "verifylisting",
+        "params": [{
+          "space": "@space",
+          "price": 10000,
+          "seller": "bcrts1pr5ux9k9jngxy8jjxyhwv7w0hvztyteklsn5y47urtwhcmdppgqpqrj9p9g",
+          "signature": "........"
+        }],
+        "id": 1
+      }'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
+
+```json
+null
+```
+
+## Buy
+
+<mark style="color:green;">`walletbuy`</mark> buy space using the sell output
+
+**Params**
+
+| Name              | Type               | Description                         |
+|-------------------|--------------------|-------------------------------------|
+| `name`            | string             | Wallet name                         |
+| `listing`         | object             | The `walletsell` output             |
+| `fee_rate`        | number (optional)  | Fee rate in sat/vB                  |
+| `skip_tx_check`   | bool               | Skip tx checker (not recommended)   |
+
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 buy --signature ........ --seller bcrts1pr5ux9k9jngxy8jjxyhwv7w0hvztyteklsn5y47urtwhcmdppgqpqrj9p9g @space 10000
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7218 \
+     -H "Content-Type: application/json" \
+     -d '{
+        "jsonrpc": "2.0",
+        "method": "walletbuy",
+        "params": [
+          "default",
+          {
+            "space": "@space",
+            "price": 10000,
+            "seller": "bcrts1pr5ux9k9jngxy8jjxyhwv7w0hvztyteklsn5y47urtwhcmdppgqpqrj9p9g",
+            "signature": "........"
+          },
+          null,
+          false
+        ],
+        "id": 1
+      }'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
+
+```json
+{
+  "txid": "f51c8c474f53a846187e9eb4c0fa0a44226b35e4fd5693f138d170d57f9bb977",
+  "events": [
+    {
+      "type": "buy",
+      "space": "@space",
+      "previous_spaceout": "a04100e569761211716e1452ae17a95d4d3ddd9fe8d03e8371ed8fa58b0504f6:1"
+    }
+  ]
+}
+```
+
+## Sign Message
+
+<mark style="color:green;">`walletsignmessage`</mark> signs the message
+
+**Params**
+
+| Name              | Type               | Description                         |
+|-------------------|--------------------|-------------------------------------|
+| `name`            | string             | Wallet name                         |
+| `space`           | string             | The space name                      |
+| `message`         | string             | Message as hex string               |
+
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 signmessage @testspace message
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7218 \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","method":"walletsignmessage","params":["default", "@testspace", "6d657373616765"],"id":1}'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
+
+```json
+"673ef14b408979ab8bc9fcae23dc309187999189fdd429128f899763de8951ded9337f0861cb60e50eded5a9344796a6810bf2186a4bc9fd27d2bb45ee23ded8"
+```
+
+## Verify Message
+
+<mark style="color:green;">`verifymessage`</mark> verify a signed message
+
+**Params**
+
+| Name              | Type               | Description                         |
+|-------------------|--------------------|-------------------------------------|
+| `space`           | string             | The space name                      |
+| `message`         | string             | Message as hex string               |
+| `signature`       | string             | Signature as hex string             |
+
+{% tabs %}
+{% tab title="CLI" %}
+```
+space-cli --chain testnet4 --signature 673ef14b408979ab8bc9fcae23dc309187999189fdd429128f899763de8951ded9337f0861cb60e50eded5a9344796a6810bf2186a4bc9fd27d2bb45ee23ded8 @testspace message
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl -X POST http://127.0.0.1:7218 \
+     -H "Content-Type: application/json" \
+     -d '{
+        "jsonrpc": "2.0",
+        "method": "verifymessage",
+        "params": [{
+            "space": "@testspace",
+            "message": "6d657373616765",
+            "signature": "673ef14b408979ab8bc9fcae23dc309187999189fdd429128f899763de8951ded9337f0861cb60e50eded5a9344796a6810bf2186a4bc9fd27d2bb45ee23ded8"
+        }],
+        "id": 1
+      }'
+```
+{% endtab %}
+{% endtabs %}
+
+**Example Response**
+
+```json
+null
+```
+
 ## List Spaces
 
-<mark style="color:green;">`listspaces`</mark> list all spaces currently owned by the wallet including ones actively in auction
+<mark style="color:green;">`walletlistspaces`</mark> list all spaces currently owned by the wallet including ones actively in auction
 
 **Params**
 
@@ -411,40 +629,57 @@ curl -X POST http://127.0.0.1:7224 \
 **Response**
 
 ```json
-[
-  {
-    "outpoint": "633bdcf13aa3612511c48e6c6ce5273bb782056798fdfe438c733d75f9c78c74:1",
-    "txout": {
-      "value": 662,
-      "script_pubkey": "5120f6ce498e67df193ef20929adb989fdda6f008f601a53ed1074adafe224bd0183"
-    },
-    "keychain": "External",
-    "is_spent": false,
-    "derivation_index": 1,
-    "confirmation_time": {
-      "Confirmed": {
-        "height": 57229,
-        "time": 1733755861
+{
+   "winning": [
+      {
+         "txid": "9c44384840b40ef159764801a185a87f84947919d60d9e87771cbd47044e0467",
+         "n": 3,
+         "name": "@space2",
+         "covenant": {
+            "type": "bid",
+            "burn_increment": 10000,
+            "signature": "........",
+            "total_burned": 10000,
+            "claim_height": 9937
+         },
+         "value": 662,
+         "script_pubkey": "........"
       }
-    },
-    "space": {
-      "name": "@test129873189372198",
-      "covenant": {
-        "type": "bid",
-        "burn_increment": 1000,
-        "signature": "08182475f106138f5b96b5de4f57d5661d0421390a056cd5da39beb46e617697b36f5c8deb6e737d625285f4f6244d4e4d48ac9d841a9ba41acea5d1d7f29458",
-        "total_burned": 1000,
-        "claim_height": null
+   ],
+   "outbid": [
+      {
+         "txid": "c2d156cde1437915eafdc551018abc594c4737ef65c0033a3ea6c1c6d779fefa",
+         "n": 1,
+         "name": "@space1",
+         "covenant": {
+            "type": "transfer",
+            "expire_height": 55121,
+            "data": null
+         },
+         "value": 666,
+         "script_pubkey": "........"
       }
-    },
-    "is_spaceout": true
-  }
-]
+   ],
+   "owned": [
+      {
+         "txid": "a04100e569761211716e1452ae17a95d4d3ddd9fe8d03e8371ed8fa58b0504f6",
+         "n": 1,
+         "name": "@space3",
+         "covenant": {
+            "type": "transfer",
+            "expire_height": 55121,
+            "data": null
+         },
+         "value": 666,
+         "script_pubkey":  "........"
+      }
+   ]
+}
 ```
 
 ## List Unspent
 
-<mark style="color:green;">`listunspent`</mark> list unspent transaction outputs
+<mark style="color:green;">`walletlistunspent`</mark> list unspent transaction outputs
 
 **Params**
 
@@ -473,56 +708,90 @@ curl -X POST http://127.0.0.1:7224 \
 ```json
 [
   {
-    "outpoint": "633bdcf13aa3612511c48e6c6ce5273bb782056798fdfe438c733d75f9c78c74:1",
+    "outpoint": "838948b831a81119e20637a807ad0fe09bae248af6183fdd668168e7f58449b2:1",
     "txout": {
-      "value": 662,
-      "script_pubkey": "5120f6ce498e67df193ef20929adb989fdda6f008f601a53ed1074adafe224bd0183"
+      "value": 666,
+      "script_pubkey": "........"
     },
     "keychain": "External",
     "is_spent": false,
-    "derivation_index": 1,
-    "confirmation_time": {
+    "derivation_index": 4,
+    "chain_position": {
       "Confirmed": {
-        "height": 57229,
-        "time": 1733755861
+        "anchor": {
+          "block_id": {
+            "height": 6301,
+            "hash": "6e4630c207d973ad8e59b2c0e245f50496fc6b31fc6c6c4fceedba886b83ea28"
+          },
+          "confirmation_time": 1738698507
+        },
+        "transitively": null
       }
     },
     "space": {
-      "name": "@test129873189372198",
+      "name": "@space",
       "covenant": {
-        "type": "bid",
-        "burn_increment": 1000,
-        "signature": "08182475f106138f5b96b5de4f57d5661d0421390a056cd5da39beb46e617697b36f5c8deb6e737d625285f4f6244d4e4d48ac9d841a9ba41acea5d1d7f29458",
-        "total_burned": 1000,
-        "claim_height": null
+        "type": "transfer",
+        "expire_height": 58861,
+        "data": null
       }
     },
     "is_spaceout": true
   },
   {
-    "outpoint": "65dcad71550fc2f59553b7525d131f8c3b416d1310b46e5aa6428feaf742b0e4:1",
+    "outpoint": "643aefc51869a615e8313db5c85e70058341ae48289afdf7be88438817986a6e:5",
     "txout": {
       "value": 662,
-      "script_pubkey": "5120aac8a8c793b5f8041fc602c22717a743c1e54f0bb225c9f251dd0a6171f99124"
+      "script_pubkey": "........"
     },
     "keychain": "External",
     "is_spent": false,
-    "derivation_index": 2,
-    "confirmation_time": {
+    "derivation_index": 7,
+    "chain_position": {
       "Confirmed": {
-        "height": 57235,
-        "time": 1733757063
+        "anchor": {
+          "block_id": {
+            "height": 8371,
+            "hash": "6055898710bdfc75ef3a96e752ae11ba89190fb8e53beb527a86999e5789160f"
+          },
+          "confirmation_time": 1738705621
+        },
+        "transitively": null
       }
     },
     "space": null,
     "is_spaceout": true
+  },
+  {
+    "outpoint": "7b235a4c5e87406315efbeebf2671124e0b05276441700a1232a7b14eb325751:0",
+    "txout": {
+      "value": 10000,
+      "script_pubkey": "........"
+    },
+    "keychain": "External",
+    "is_spent": false,
+    "derivation_index": 8,
+    "chain_position": {
+      "Confirmed": {
+        "anchor": {
+          "block_id": {
+            "height": 8471,
+            "hash": "24ee232b4c0d9c9ff60bb2e460bd80ef076ea63adedefecaa2a594431feb03dc"
+          },
+          "confirmation_time": 1738705638
+        },
+        "transitively": null
+      }
+    },
+    "space": null,
+    "is_spaceout": false
   }
 ]
 ```
 
 ## List Auction Outputs
 
-<mark style="color:green;">`listbidouts`</mark> lists all output pairs that can be used during bids
+<mark style="color:green;">`walletlistbidouts`</mark> lists all output pairs that can be used during bids
 
 **Params**
 
@@ -555,14 +824,14 @@ curl -X POST http://127.0.0.1:7224 \
       "outpoint": "d8907044ae65355b244395f42318a250eeabed49bc1dab63a5cf2553daaed2ad:0",
       "txout": {
         "value": 664,
-        "script_pubkey": "512095f0c166b48eb39dc9dcda3225d5ba1a24db25806e27126b08f272fdf6ac9040"
+        "script_pubkey": "........"
       }
     },
     "auction": {
       "outpoint": "d8907044ae65355b244395f42318a250eeabed49bc1dab63a5cf2553daaed2ad:1",
       "txout": {
         "value": 662,
-        "script_pubkey": "512064f286fc6ce6959e025b7f2de1722318500ae0f5e745fecd015f85a354790401"
+        "script_pubkey": "........"
       }
     },
     "confirmed": false
@@ -593,7 +862,7 @@ space-cli --chain testnet4 listtransactions
 ```bash
 curl -X POST http://127.0.0.1:7224 \
      -H "Content-Type: application/json" \
-     -d '{"jsonrpc":"2.0","method":"walletlisttransactions","params":["default",2,0],"id":1}'
+     -d '{"jsonrpc":"2.0","method":"walletlisttransactions","params":["default",5,0],"id":1}'
 ```
 {% endtab %}
 {% endtabs %}
@@ -601,20 +870,75 @@ curl -X POST http://127.0.0.1:7224 \
 **Response**
 
 ```json
-[ 
+[
   {
-    "txid": "633bdcf13aa3612511c48e6c6ce5273bb782056798fdfe438c733d75f9c78c74",
-    "confirmed": true,
-    "sent": 26152,
-    "received": 22207,
-    "fee": 3945
+    "txid": "9d32499b14810a2f10033c9ed1e20b01449e34a4b2613274ba875f3fdf81a0c8",
+    "confirmed": false,
+    "sent": 88950412,
+    "received": 88850537,
+    "fee": 99537,
+    "events": [
+      {
+        "type": "open",
+        "space": "@space1",
+        "initial_bid": 1000
+      }
+    ]
   },
   {
-    "txid": "1c6bb6df12990f77851f84f0f954b665a3eab82ba4acfabcacdfa7da93d87509",
+    "txid": "f51c8c474f53a846187e9eb4c0fa0a44226b35e4fd5693f138d170d57f9bb977",
+    "confirmed": false,
+    "sent": 88851203,
+    "received": 88789693,
+    "fee": 61510,
+    "events": [
+      {
+        "type": "buy",
+        "space": "@space3",
+        "previous_spaceout": "a04100e569761211716e1452ae17a95d4d3ddd9fe8d03e8371ed8fa58b0504f6:1"
+      }
+    ]
+  },
+  {
+    "txid": "4806424d1afed83e538baf1d55f508481efd10e4a6b2bae24923c0fb6e460717",
+    "confirmed": false,
+    "sent": 9999999,
+    "received": 9968178,
+    "fee": 31159,
+    "events": [
+      {
+        "type": "commit",
+        "space": "@space1"
+      }
+    ]
+  },
+  {
+    "txid": "7b235a4c5e87406315efbeebf2671124e0b05276441700a1232a7b14eb325751",
     "confirmed": true,
-    "sent": 0,
-    "received": 26152,
-    "fee": null
+    "sent": 88990907,
+    "received": 88959748,
+    "fee": 31159,
+    "events": [
+      {
+        "type": "send",
+        "amount": 10000,
+        "recipient_script_pubkey": "........"
+      }
+    ]
+  },
+  {
+    "txid": "cb6de0439f34b2bf0b26f0d87c79218026379ef7d26d76b55e1883d13f5901f9",
+    "confirmed": true,
+    "sent": 99666094,
+    "received": 99558633,
+    "fee": 98123,
+    "events": [
+      {
+        "type": "open",
+        "space": "@space2",
+        "initial_bid": 10000
+      }
+    ]
   }
 ]
 ```
