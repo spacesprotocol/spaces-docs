@@ -38,10 +38,12 @@ curl -X POST http://127.0.0.1:7225 \
 **Example Response**
 
 ```json
-"chain": "testnet4",
-"tip": {
-  "hash": "0000000000000040297226f7046d72b63e159f6814009b9d9155331fd0ddec61",
-  "height": 41730
+{
+  "chain": "mainnet",
+  "tip": {
+    "hash": "0000000000000000000210254eedf4507d3df7bf258ed4bcedfcbb8d02df58c6",
+    "height": 883338
+  }
 }
 ```
 
@@ -75,7 +77,7 @@ curl -X POST http://127.0.0.1:7225 \
 {% tab title="Pre-auction" %}
 <pre class="language-json"><code class="lang-json">
 {
-  "txid": "<a data-footnote-ref href="#user-content-fn-1">83e11748b0eb15b4ee26f35d3bffe13d35d66d055de4a42a41a06d646879f994</a>",
+  "txid": "83e11748b0eb15b4ee26f35d3bffe13d35d66d055de4a42a41a06d646879f994",
   "n": 1,
   "name": "@btc",
   "covenant": {
@@ -113,13 +115,13 @@ curl -X POST http://127.0.0.1:7225 \
 {% tab title="Claimed" %}
 ```json
 {
-  "txid": "f811529d79c9fc808c240a1b5087ba19610c4177a01ffa8047c3cc143cf3eb1a",
+  "txid": "3ac9772d3451bd0b2a7cfa09c3eecebdbfb54bbdf90f322e7e7fa6dee3bc0def",
   "n": 1,
   "name": "@bitcoin",
   "covenant": {
     "type": "transfer",
-    "expire_height": 108439,
-    "data": "68656c6c6f20776f726c64"
+    "expire_height": 925977,
+    "data": null
   },
   "value": 666,
   "script_pubkey": "........"
@@ -157,7 +159,7 @@ curl -X POST http://127.0.0.1:7225 \
 **Example Response** Responds with an outpoint with `txid:vout` format.
 
 ```json
-f811529d79c9fc808c240a1b5087ba19610c4177a01ffa8047c3cc143cf3eb1a:1
+"3ac9772d3451bd0b2a7cfa09c3eecebdbfb54bbdf90f322e7e7fa6dee3bc0def:1"
 ```
 
 ## Get Spaceout
@@ -166,13 +168,13 @@ f811529d79c9fc808c240a1b5087ba19610c4177a01ffa8047c3cc143cf3eb1a:1
 
 **Params**
 
-<table><thead><tr><th width="137">Name</th><th width="87">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>outpoint</code></td><td>string</td><td><p>An Outpoint which is a specific output within a transaction using <code>txid:vout</code> format e.g.</p><pre class="language-json"><code class="lang-json">f811529d79c9fc808c240a1b5087ba19610c4177a01ffa8047c3cc143cf3eb1a:1
+<table><thead><tr><th width="137">Name</th><th width="87">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>outpoint</code></td><td>string</td><td><p>An Outpoint which is a specific output within a transaction using <code>txid:vout</code> format e.g.</p><pre class="language-json"><code class="lang-json">3ac9772d3451bd0b2a7cfa09c3eecebdbfb54bbdf90f322e7e7fa6dee3bc0def:1
 </code></pre></td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="CLI" %}
 ```
-space-cli getspaceout "f811529d79c9fc808c240a1b5087ba19610c4177a01ffa8047c3cc143cf3eb1a:1"
+space-cli getspaceout "3ac9772d3451bd0b2a7cfa09c3eecebdbfb54bbdf90f322e7e7fa6dee3bc0def:1"
 ```
 {% endtab %}
 
@@ -180,7 +182,7 @@ space-cli getspaceout "f811529d79c9fc808c240a1b5087ba19610c4177a01ffa8047c3cc143
 ```bash
 curl -X POST http://127.0.0.1:7225 \
      -H "Content-Type: application/json" \
-     -d '{"jsonrpc":"2.0","method":"getspaceout","params":["f811529d79c9fc808c240a1b5087ba19610c4177a01ffa8047c3cc143cf3eb1a:1"],"id":1}'
+     -d '{"jsonrpc":"2.0","method":"getspaceout","params":["3ac9772d3451bd0b2a7cfa09c3eecebdbfb54bbdf90f322e7e7fa6dee3bc0def:1"],"id":1}'
 ```
 {% endtab %}
 {% endtabs %}
@@ -195,8 +197,8 @@ curl -X POST http://127.0.0.1:7225 \
   "name": "@bitcoin",
   "covenant": {
     "type": "transfer",
-    "expire_height": 108439,
-    "data": "68656c6c6f20776f726c64"
+    "expire_height": 925977,
+    "data": null
   },
   "value": 666,
   "script_pubkey": "........"
@@ -490,6 +492,3 @@ curl -X POST http://127.0.0.1:7225 \
   }
 ]
 ```
-
-[^1]: Checkout this outpoint here\
-    [https://mempool.space/testnet4/tx/83e11748b0eb15b4ee26f35d3bffe13d35d66d055de4a42a41a06d646879f994](https://mempool.space/testnet4/tx/83e11748b0eb15b4ee26f35d3bffe13d35d66d055de4a42a41a06d646879f994)
