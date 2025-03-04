@@ -6,8 +6,8 @@
 
 * [Quickstart](getting-started/quickstart.md)
 * [Auctions](getting-started/auctions.md)
-* [Subspaces](getting-started/subspaces.md)
 * [Name resolution](getting-started/resolver.md)
+* [Subspaces](getting-started/subspaces.md)
 * [Explorer](https://explorer.spacesprotocol.org)
 
 ## Deep dive
