@@ -1,10 +1,11 @@
 # Table of contents
 
-* [Welcome](README.md)
+* [Spaces on Bitcoin](README.md)
 
 ## Getting Started
 
-* [Quickstart](getting-started/quickstart.md)
+* [Quick start](getting-started/quickstart.md)
+* [Fabric DHT](getting-started/fabric-dht.md)
 * [Auctions](getting-started/auctions.md)
 * [Name resolution](getting-started/resolver.md)
 * [Subspaces](getting-started/subspaces.md)

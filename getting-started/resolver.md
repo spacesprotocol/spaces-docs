@@ -1,3 +1,8 @@
+---
+cover: ../.gitbook/assets/Fabric bg (1).svg
+coverY: 0
+---
+
 # Name resolution
 
 The Spaces protocol functions primarily as a Bitcoin certificate authority, minimizing on-chain footprint. Its trustless nature makes it an ideal foundation for Peer-to-Peer (P2P) protocols that leverage spaces as trust anchors, enabling off-chain record storage and other use cases.&#x20;

@@ -1,3 +1,8 @@
+---
+cover: ../.gitbook/assets/Fabric bg (1).svg
+coverY: 0
+---
+
 # Auctions
 
 Spaces enable auctions with arbitrary bids implemented directly on the Bitcoin blockchain. Auctions are designed as a fair competition for naming rights. Instead of distributing spaces on a first-come, first-served basis, the protocol employs a bidding system. This approach helps ensure that valuable names don't all end up concentrated in the hands of a few quick actors.

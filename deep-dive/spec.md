@@ -1,5 +1,7 @@
 ---
 description: A low level overview of the spaces protocol but not an exact spec!
+cover: ../.gitbook/assets/Fabric bg (1).svg
+coverY: 0
 ---
 
 # Spec

@@ -1,3 +1,8 @@
+---
+cover: ../.gitbook/assets/Fabric bg (1).svg
+coverY: 0
+---
+
 # Subspaces
 
 Subspaces are individual identities within a community Space. Examples of this hierarchical structure:

@@ -1,6 +1,11 @@
 ---
-icon: hand-wave
+icon: bitcoin
+cover: .gitbook/assets/Fabric bg (1).svg
+coverY: 0
 layout:
+  cover:
+    visible: true
+    size: full
   title:
     visible: true
   description:
@@ -13,19 +18,23 @@ layout:
     visible: true
 ---
 
-# Welcome
+# Spaces on Bitcoin
 
-_Spaces_ are community identifiers; think of them as top-level domains such as ".com", ".org", and ".net". Every _Space_ is represented as a [Bitcoin UTXO](https://mirror.xyz/0xaFaBa30769374EA0F971300dE79c62Bf94B464d5/Yetu-6pZkbQCOpsBxswn_7dGUZDxoBU8NrOQIZScwpg) (Unspent Transaction Output), and can operate millions of decentralized identities underneath called _subspaces_. There are only about 3600 community spaces released per year, acquired through permissionless auctions on the Bitcoin blockchain.
+_Spaces_ are nice & memorable sovereign handles anchored in Bitcoin with minimal on-chain footprint. They are easier to share compared to an [`npub`](https://github.com/nostr-protocol/nips/blob/master/19.md#bare-keys-and-ids), and can be used to sign things just like a regular public key!&#x20;
 
-<figure><picture><source srcset=".gitbook/assets/handles-dark.png" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/handles-light.png" alt=""></picture><figcaption><p>alice, bob and mike are subspaces or identities within the communities @nostr, @bitcoin and @x</p></figcaption></figure>
+
+
+<figure><img src=".gitbook/assets/alice-npub-resolve.svg" alt=""><figcaption></figcaption></figure>
+
+
 
 ## What makes spaces special?
 
-Unlike _Bitcoin-themed_ naming systems such as ones based on RSK and STX, Spaces are Bitcoin UTXOs secured directly by the Bitcoin blockchain and have the following properties:
+Spaces are anchored in Bitcoin, the most secure Proof-of-Work blockchain, and have the following properties:
 
-* Spaces are community identifiers, capped at \~3600 per year, acquired through permissionless auctions on the Bitcoin blockchain.
-* Each _Space_ is a community that may operate a registry for issuing Bitcoin identities known as _subspaces_.
-* Spaces AND subspaces (once allocated) are permissionless and as secure as Bitcoin itself! No bridges, slashing, or optimistic security.
+* Primary spaces are community identifiers, capped at \~3600 per year, acquired through permissionless auctions on the Bitcoin blockchain.
+* Each primary _Space_ is a community that may issue sovereign handles off-chain known as _subspaces._
+* Spaces AND subspaces (once allocated) are permissionless and as secure as Bitcoin itself! No bridges, slashing, or any kind of optimistic security.
 * The spaces protocol is designed with zk-light clients in mind making these identities verifiable on resource constrained devices.
 * Subspaces do not need to trust the community operator once allocated, and they can do 100% of their transactions on-chain if they wish.
 * Minimal on-chain footprint.
@@ -36,4 +45,4 @@ For full verification, you can sync the entire spaces protocol with a pruned Bit
 
 ## Jump right in
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Getting Started</strong></td><td>Download and install spaces</td><td><a href=".gitbook/assets/coversgetstarted.png">coversgetstarted.png</a></td><td></td><td><a href="getting-started/quickstart.md">quickstart.md</a></td></tr><tr><td><strong>Deep Dive</strong></td><td>Understand how the protocol works</td><td><a href=".gitbook/assets/coversdeepdive.png">coversdeepdive.png</a></td><td></td><td><a href="deep-dive/spec.md">spec.md</a></td></tr><tr><td><strong>Explorer</strong></td><td>Checkout the explorer</td><td><a href=".gitbook/assets/coversexplorer.png">coversexplorer.png</a></td><td></td><td><a href="https://explorer.spacesprotocol.org">https://explorer.spacesprotocol.org</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Getting Started</strong></td><td>Download and install spaces</td><td><a href=".gitbook/assets/Fabric bg (1).svg">Fabric bg (1).svg</a></td><td></td><td><a href="getting-started/quickstart.md">quickstart.md</a></td></tr><tr><td><strong>Deep Dive</strong></td><td>Understand how the protocol works</td><td><a href=".gitbook/assets/Fabric bg (1).svg">Fabric bg (1).svg</a></td><td></td><td><a href="deep-dive/spec.md">spec.md</a></td></tr><tr><td><strong>Explorer</strong></td><td>Checkout the explorer</td><td><a href=".gitbook/assets/Fabric bg (1).svg">Fabric bg (1).svg</a></td><td></td><td><a href="https://explorer.spacesprotocol.org">https://explorer.spacesprotocol.org</a></td></tr></tbody></table>

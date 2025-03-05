@@ -1,8 +1,10 @@
 ---
 description: Setup spaces on mainnet
+cover: ../.gitbook/assets/Fabric bg (1).svg
+coverY: 0
 ---
 
-# Quickstart
+# Quick start
 
 ### Install Bitcoin Core
 
@@ -15,9 +17,9 @@ rpcuser=<your-username>
 rpcpassword=<your-password>
 ```
 
-### Install Spaces Daemon
+### Install Spaces
 
-`spaces` is a tiny layer that connects to Bitcoin Core over RPC and scans transactions relevant to the protocol.&#x20;
+`spaced` is a tiny layer that connects to Bitcoin Core over RPC and scans transactions relevant to the protocol.&#x20;
 
 1. Install the latest version:
 
@@ -93,3 +95,7 @@ space-cli register bitcoin
 ```
 
 You may also watch the status of auctions on the [explorer](https://explorer.spacesprotocol.org)
+
+### Publish records <a href="#placing-a-bid" id="placing-a-bid"></a>
+
+Once you register a space, you can publish records over the [Fabric DHT](fabric-dht.md) without adding any on-chain bloat!
