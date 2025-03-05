@@ -24,7 +24,7 @@ _Spaces_ are nice & memorable sovereign handles anchored in Bitcoin with minimal
 
 
 
-<figure><img src=".gitbook/assets/alice-npub-resolve.svg" alt=""><figcaption></figcaption></figure>
+<figure><picture><source srcset=".gitbook/assets/alice-npub-resolve-dark-2.svg" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/alice-npub-resolve.svg" alt=""></picture><figcaption></figcaption></figure>
 
 
 
