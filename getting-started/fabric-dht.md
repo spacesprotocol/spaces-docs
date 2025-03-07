@@ -90,7 +90,7 @@ Remember to replace `@example`with your space name, and remember to put the `.`a
 2. **Sign the file**
 
 ```
-space-cli signzone myexample.zone > signed.event.json
+space-cli signzone @example myexample.zone > signed.event.json
 ```
 
 The wallet will turn it into a signed Nostr event and bundles proof information to make it ready for publishing to Fabric.
